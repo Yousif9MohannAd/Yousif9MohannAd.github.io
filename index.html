@@ -12,121 +12,54 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="grid-bg"></div>
-  <div class="glow glow-one"></div>
-  <div class="glow glow-two"></div>
-
+  <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header">
-    <nav class="container nav">
-      <a class="brand" href="#home">
-        <span class="brand-box">YM</span>
-        <span>YOUSIF<span>.SEC</span></span>
-      </a>
-      <button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button>
-      <div class="nav-links" id="navLinks">
-        <a href="#about">About</a>
-        <a href="#skills">Skills</a>
-        <a href="#experience">Experience</a>
-        <a href="#certificates">Training</a>
-        <a href="#contact" class="nav-contact">Contact</a>
-      </div>
+    <div class="brand-row">
+      <a class="brand" href="#home" aria-label="Yousif Mohannad — home"><span class="brand-mark">YM<span aria-hidden="true">.</span></span><span class="brand-caption">YOUSIF.SEC</span></a>
+      <button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-controls="navLinks" aria-expanded="false"><span class="menu-label">Menu</span><span class="menu-icon" aria-hidden="true"><span></span><span></span></span></button>
+    </div>
+    <nav class="nav" id="navLinks" aria-label="Main navigation">
+      <p class="nav-caption">PORTFOLIO</p>
+        <a href="#home"><span class="nav-number" aria-hidden="true">00</span><span>Overview</span><span class="nav-arrow" aria-hidden="true">↗</span></a>
+        <a href="#about"><span class="nav-number" aria-hidden="true">01</span><span>About</span><span class="nav-arrow" aria-hidden="true">↗</span></a>
+        <a href="#skills"><span class="nav-number" aria-hidden="true">02</span><span>Skills</span><span class="nav-arrow" aria-hidden="true">↗</span></a>
+        <a href="#labs"><span class="nav-number" aria-hidden="true">03</span><span>Labs</span><span class="nav-arrow" aria-hidden="true">↗</span></a>
+        <a href="#experience"><span class="nav-number" aria-hidden="true">04</span><span>Experience</span><span class="nav-arrow" aria-hidden="true">↗</span></a>
+        <a href="#certificates"><span class="nav-number" aria-hidden="true">05</span><span>Training</span><span class="nav-arrow" aria-hidden="true">↗</span></a>
+        <a href="#contact"><span class="nav-number" aria-hidden="true">06</span><span>Contact</span><span class="nav-arrow" aria-hidden="true">↗</span></a>
     </nav>
+    <div class="sidebar-footer">
+      <p>Cyber Security<br>Engineer</p>
+      <div><a href="https://github.com/Yousif9MohannAd" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a><a href="mailto:yousifics91@gmail.com">Email <span aria-hidden="true">↗</span></a></div>
+    </div>
   </header>
 
-  <main>
-    <section class="hero container" id="home">
-      <div class="hero-copy reveal">
-        <div class="status-pill"><span></span> CYBER SECURITY ENGINEER</div>
-        <p class="eyebrow">PENETRATION TESTING • RED TEAMING • BLUE TEAM • SECURITY RESEARCH</p>
-        <h1>Yousif<br><span>Mohannad.</span></h1>
-        <p class="hero-text">
-          Hands-on cybersecurity practitioner working across offensive and defensive security,
+  <main id="main" class="site-main" tabindex="-1">
+    <section class="hero content-wrap" id="home" aria-labelledby="home-title" tabindex="-1">
+      <div class="hero-topline"><span>CYBER SECURITY ENGINEER</span><span>Baghdad, Iraq</span></div>
+      <h1 id="home-title">Yousif <span>Mohannad.</span></h1>
+      <p class="hero-disciplines">PENETRATION TESTING • RED TEAMING • BLUE TEAM • SECURITY RESEARCH</p>
+      <div class="hero-bottom">
+        <p class="hero-text">Hands-on cybersecurity practitioner working across offensive and defensive security,
           including penetration testing, red teaming, vulnerability research, threat intelligence,
-          malware analysis, network security and security detection engineering.
-        </p>
-
+          malware analysis, network security and security detection engineering.</p>
         <div class="hero-actions">
-          <a class="btn primary" href="#certificates">View Training <span>↗</span></a>
-          <a class="btn secondary" href="https://github.com/Yousif9MohannAd" target="_blank" rel="noreferrer">GitHub <span>↗</span></a>
-        </div>
-
-        <div class="hero-facts">
-          <div><span>LOCATION</span><strong>Baghdad, Iraq</strong></div>
-          <div><span>EDUCATION</span><strong>Cyber Security Engineering</strong></div>
-          <div><span>FOCUS</span><strong>Blue Team / SOC</strong></div>
+          <a class="action-link primary" href="#skills">Explore My Skills <span aria-hidden="true">↘</span></a>
+          <a class="action-link" href="https://github.com/Yousif9MohannAd" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
         </div>
       </div>
-
-      <div class="hero-card reveal delay">
-        <div class="ops-head">
-          <div>
-            <span class="ops-kicker">SECURITY_OPERATIONS://LIVE</span>
-            <h3>Attack Surface Monitor</h3>
-          </div>
-          <span class="live-badge"><i></i> LIVE</span>
-        </div>
-
-        <div class="threat-map">
-          <div class="map-grid"></div>
-          <div class="map-ring ring-a"></div>
-          <div class="map-ring ring-b"></div>
-          <div class="map-ring ring-c"></div>
-          <div class="sweep"></div>
-          <span class="node n1"></span>
-          <span class="node n2"></span>
-          <span class="node n3"></span>
-          <span class="node n4"></span>
-          <div class="map-label l1">WEB</div>
-          <div class="map-label l2">ENDPOINT</div>
-          <div class="map-label l3">NETWORK</div>
-        </div>
-
-        <div class="ops-stats">
-          <div><span>MODE</span><strong>RED / BLUE</strong></div>
-          <div><span>FOCUS</span><strong>OFFENSIVE</strong></div>
-          <div><span>STATUS</span><strong class="green-text">ACTIVE</strong></div>
-        </div>
-
-        <div class="console">
-          <div class="console-head">
-            <span></span><span></span><span></span>
-            <p>security-console</p>
-          </div>
-          <div class="console-body compact">
-            <p><b>$</b> modules --active</p>
-            <p class="out">pentest · red_team · threat_intel</p>
-            <p class="out">reverse_engineering · detection_evasion</p>
-            <p><b>$</b> assessment --status</p>
-            <p class="success">READY FOR ANALYSIS ✓</p>
-          </div>
-        </div>
-      </div>
+      <dl class="profile-facts">
+        <div><dt>LOCATION</dt><dd>Baghdad, Iraq</dd></div>
+        <div><dt>EDUCATION</dt><dd>Cyber Security Engineering</dd></div>
+        <div><dt>FOCUS</dt><dd>Blue Team / SOC</dd></div>
+      </dl>
     </section>
 
-    <section class="signal-bar">
-      <div class="container signal-track">
-        <span>THREAT DETECTION</span>
-        <i></i>
-        <span>LOG ANALYSIS</span>
-        <i></i>
-        <span>SIEM</span>
-        <i></i>
-        <span>NETWORK SECURITY</span>
-        <i></i>
-        <span>INCIDENT RESPONSE</span>
-        <i></i>
-        <span>PENETRATION TESTING</span>
-      </div>
-    </section>
-
-    <section class="section container" id="about">
-      <div class="section-index reveal">01 // ABOUT</div>
-      <div class="about-grid">
-        <div class="section-heading reveal">
-          <h2>Defensive thinking.<br><span>Offensive curiosity.</span></h2>
-        </div>
-        <div class="about-text reveal">
-          <p>
+    <section class="section content-wrap" id="about" aria-labelledby="about-title" tabindex="-1">
+      <div class="section-label"><span aria-hidden="true">01</span><p>ABOUT</p></div>
+      <div class="about-layout">
+        <h2 id="about-title">Defensive thinking.<br><span>Offensive curiosity.</span></h2>
+        <div class="about-text"><p>
             I am a cybersecurity engineer with a practical Blue Team focus, including threat detection,
             log analysis and incident response. I work with Splunk, Wireshark and Suricata to understand
             network behavior and identify malicious activity.
@@ -134,82 +67,87 @@
           <p>
             I actively train through TryHackMe and Hack The Box labs, with a strong interest in SIEM,
             secure network protocols, SOC procedures and continuous hands-on learning.
-          </p>
+          </p></div>
+      </div>
+    </section>
+
+    <section class="section content-wrap" id="skills" aria-labelledby="skills-title" tabindex="-1">
+      <div class="section-label"><span aria-hidden="true">02</span><p>TECHNICAL CAPABILITIES</p></div>
+      <div class="section-heading"><h2 id="skills-title">My security stack.</h2><p>Offensive, defensive and investigative security capabilities across modern attack and defense workflows.</p></div>
+      <div class="skills-workspace">
+        <div class="skill-group">
+          <h3>Detection &amp; engineering</h3>
+          <div class="skill-list">
+            <details class="skill-item" open>
+              <summary><span class="skill-number">01</span><span class="skill-title">Blue Team / SOC</span><span class="detail-toggle" aria-hidden="true"></span></summary>
+              <div class="skill-body"><p>Threat detection, alert triage, log analysis, incident response and SOC workflows.</p><div class="tags"><span>Splunk</span><span>SIEM</span><span>Log Analysis</span><span>SOC L1/L2</span></div></div>
+            </details>
+            <details class="skill-item" open>
+              <summary><span class="skill-number">02</span><span class="skill-title">Network & Security Engineering</span><span class="detail-toggle" aria-hidden="true"></span></summary>
+              <div class="skill-body"><p>Traffic inspection, IDS monitoring, firewall configuration, secure networking and system troubleshooting.</p><div class="tags"><span>Wireshark</span><span>Suricata</span><span>FortiGate</span><span>Python</span></div></div>
+            </details>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <h3>Offensive security</h3>
+          <div class="skill-list">
+            <details class="skill-item">
+              <summary><span class="skill-number">03</span><span class="skill-title">Penetration Testing</span><span class="detail-toggle" aria-hidden="true"></span></summary>
+              <div class="skill-body"><p>Security assessment workflows across web applications, systems and network attack surfaces.</p><div class="tags"><span>Recon</span><span>Enumeration</span><span>Exploitation</span><span>Reporting</span></div></div>
+            </details>
+            <details class="skill-item">
+              <summary><span class="skill-number">04</span><span class="skill-title">Red Teaming</span><span class="detail-toggle" aria-hidden="true"></span></summary>
+              <div class="skill-body"><p>Adversary-focused testing, attack-path analysis and controlled emulation of realistic intrusion techniques.</p><div class="tags"><span>Adversary Emulation</span><span>Attack Paths</span><span>OPSEC</span><span>Tradecraft</span></div></div>
+            </details>
+            <details class="skill-item">
+              <summary><span class="skill-number">05</span><span class="skill-title">Vulnerability Assessment</span><span class="detail-toggle" aria-hidden="true"></span></summary>
+              <div class="skill-body"><p>Vulnerability identification, validation, prioritization and exploitation analysis across exposed services.</p><div class="tags"><span>Identification</span><span>Validation</span><span>Exploitation</span><span>Risk</span></div></div>
+            </details>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <h3>Research &amp; investigation</h3>
+          <div class="skill-list">
+            <details class="skill-item">
+              <summary><span class="skill-number">06</span><span class="skill-title">Threat Intelligence Investigations</span><span class="detail-toggle" aria-hidden="true"></span></summary>
+              <div class="skill-body"><p>Investigation of indicators, infrastructure, attacker behavior and threat context to support security decisions.</p><div class="tags"><span>IOC Analysis</span><span>OSINT</span><span>Attribution Support</span><span>Threat Context</span></div></div>
+            </details>
+            <details class="skill-item">
+              <summary><span class="skill-number">07</span><span class="skill-title">Malware Reverse Engineering</span><span class="detail-toggle" aria-hidden="true"></span></summary>
+              <div class="skill-body"><p>Static and dynamic malware analysis with emphasis on behavior, indicators and reverse-engineering workflows.</p><div class="tags"><span>Static Analysis</span><span>Dynamic Analysis</span><span>Behavior</span><span>RE</span></div></div>
+            </details>
+            <details class="skill-item">
+              <summary><span class="skill-number">08</span><span class="skill-title">Detection Evasion & Bypass Investigation</span><span class="detail-toggle" aria-hidden="true"></span></summary>
+              <div class="skill-body"><p>Security testing focused on understanding defensive controls, detection gaps and bypass-resistant mitigations.</p><div class="tags"><span>Detection Testing</span><span>EDR Concepts</span><span>Bypass Analysis</span><span>Hardening</span></div></div>
+            </details>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="section container" id="skills">
-      <div class="section-index reveal">02 // TECHNICAL CAPABILITIES</div>
-      <div class="section-intro reveal">
-        <h2>My security stack.</h2>
-        <p>Offensive, defensive and investigative security capabilities across modern attack and defense workflows.</p>
-      </div>
-
-      <div class="skill-grid">
-        <article class="skill-card reveal">
-          <div class="card-top"><span>01</span><div class="icon">↯</div></div>
-          <h3>Penetration Testing</h3>
-          <p>Security assessment workflows across web applications, systems and network attack surfaces.</p>
-          <div class="tags"><span>Recon</span><span>Enumeration</span><span>Exploitation</span><span>Reporting</span></div>
-        </article>
-
-        <article class="skill-card reveal">
-          <div class="card-top"><span>02</span><div class="icon">⚔</div></div>
-          <h3>Red Teaming</h3>
-          <p>Adversary-focused testing, attack-path analysis and controlled emulation of realistic intrusion techniques.</p>
-          <div class="tags"><span>Adversary Emulation</span><span>Attack Paths</span><span>OPSEC</span><span>Tradecraft</span></div>
-        </article>
-
-        <article class="skill-card reveal">
-          <div class="card-top"><span>03</span><div class="icon">◎</div></div>
-          <h3>Vulnerability Assessment</h3>
-          <p>Vulnerability identification, validation, prioritization and exploitation analysis across exposed services.</p>
-          <div class="tags"><span>Identification</span><span>Validation</span><span>Exploitation</span><span>Risk</span></div>
-        </article>
-
-        <article class="skill-card reveal">
-          <div class="card-top"><span>04</span><div class="icon">◈</div></div>
-          <h3>Threat Intelligence Investigations</h3>
-          <p>Investigation of indicators, infrastructure, attacker behavior and threat context to support security decisions.</p>
-          <div class="tags"><span>IOC Analysis</span><span>OSINT</span><span>Attribution Support</span><span>Threat Context</span></div>
-        </article>
-
-        <article class="skill-card reveal">
-          <div class="card-top"><span>05</span><div class="icon">⌬</div></div>
-          <h3>Malware Reverse Engineering</h3>
-          <p>Static and dynamic malware analysis with emphasis on behavior, indicators and reverse-engineering workflows.</p>
-          <div class="tags"><span>Static Analysis</span><span>Dynamic Analysis</span><span>Behavior</span><span>RE</span></div>
-        </article>
-
-        <article class="skill-card reveal">
-          <div class="card-top"><span>06</span><div class="icon">⟁</div></div>
-          <h3>Detection Evasion & Bypass Investigation</h3>
-          <p>Security testing focused on understanding defensive controls, detection gaps and bypass-resistant mitigations.</p>
-          <div class="tags"><span>Detection Testing</span><span>EDR Concepts</span><span>Bypass Analysis</span><span>Hardening</span></div>
-        </article>
-
-        <article class="skill-card reveal">
-          <div class="card-top"><span>07</span><div class="icon">◉</div></div>
-          <h3>Blue Team / SOC</h3>
-          <p>Threat detection, alert triage, log analysis, incident response and SOC workflows.</p>
-          <div class="tags"><span>Splunk</span><span>SIEM</span><span>Log Analysis</span><span>SOC L1/L2</span></div>
-        </article>
-
-        <article class="skill-card reveal">
-          <div class="card-top"><span>08</span><div class="icon">⌁</div></div>
-          <h3>Network & Security Engineering</h3>
-          <p>Traffic inspection, IDS monitoring, firewall configuration, secure networking and system troubleshooting.</p>
-          <div class="tags"><span>Wireshark</span><span>Suricata</span><span>FortiGate</span><span>Python</span></div>
-        </article>
+    <section class="section content-wrap" id="labs" aria-labelledby="labs-title" tabindex="-1">
+      <div class="section-label"><span aria-hidden="true">03</span><p>LAB FOCUS</p></div>
+      <div class="lab-layout">
+        <div class="lab-copy"><p class="eyebrow">PRACTICAL LEARNING</p><h2 id="labs-title">Hands-on labs over theory alone.</h2><p>My practical security work spans offensive labs, defensive investigations, vulnerability analysis,
+            threat intelligence, malware analysis and realistic attack/defense scenarios through hands-on platforms and research.</p><div class="lab-tags"><span>TryHackMe</span>
+            <span>Hack The Box</span>
+            <span>Red Team</span>
+            <span>Blue Team</span>
+            <span>Threat Intelligence</span>
+            <span>Malware RE</span>
+            <span>Network Analysis</span></div></div>
+        <div class="lab-platforms" role="group" aria-label="Hands-on learning platforms"><div><span aria-hidden="true">01 /</span><strong>TryHackMe</strong></div><div><span aria-hidden="true">02 /</span><strong>Hack The Box</strong></div></div>
       </div>
     </section>
 
-    <section class="section container" id="experience">
-      <div class="section-index reveal">03 // EXPERIENCE & EDUCATION</div>
+    <section class="section content-wrap" id="experience" aria-labelledby="experience-title" tabindex="-1">
+      <div class="section-label"><span aria-hidden="true">04</span><p>EXPERIENCE &amp; EDUCATION</p></div>
+      <h2 id="experience-title">Experience &amp; education.</h2>
       <div class="timeline">
-        <article class="timeline-item reveal">
-          <div class="timeline-mark"></div>
+        <article class="timeline-item">
+
           <div class="timeline-date">5 YEARS</div>
           <div class="timeline-content">
             <span class="type">FREELANCE EXPERIENCE</span>
@@ -220,9 +158,8 @@
             </p>
           </div>
         </article>
+        <article class="timeline-item">
 
-        <article class="timeline-item reveal">
-          <div class="timeline-mark"></div>
           <div class="timeline-date">2022 — 2026</div>
           <div class="timeline-content">
             <span class="type">EDUCATION</span>
@@ -235,17 +172,13 @@
       </div>
     </section>
 
-    <section class="section container" id="certificates">
-      <div class="section-index reveal">04 // CERTIFICATES & TRAINING</div>
-      <div class="section-intro reveal">
-        <h2>Training progression.</h2>
-        <p>Grouped by platform and current status rather than presenting every item as a verified certification.</p>
-      </div>
-
-      <div class="training-grid">
-        <article class="training-card reveal">
+    <section class="section content-wrap" id="certificates" aria-labelledby="certificates-title" tabindex="-1">
+      <div class="section-label"><span aria-hidden="true">05</span><p>CERTIFICATES &amp; TRAINING</p></div>
+      <div class="section-heading"><h2 id="certificates-title">Training progression.</h2><p>Hands-on learning across security operations, networking and offensive security. Course paths and certification study are listed separately.</p></div>
+      <div class="training-list">
+        <article class="training-card">
           <div class="training-head">
-            <span class="training-state completed">TRAINING</span>
+            <span class="training-state track">TRAINING</span>
             <span>TRYHACKME</span>
           </div>
           <h3>Security & SOC Paths</h3>
@@ -258,10 +191,9 @@
             <li>Blue Team Labs — Practical Experience</li>
           </ul>
         </article>
-
-        <article class="training-card reveal">
+        <article class="training-card">
           <div class="training-head">
-            <span class="training-state completed">COURSES</span>
+            <span class="training-state track">COURSES</span>
             <span>NETWORK / IT</span>
           </div>
           <h3>Core Technical Courses</h3>
@@ -273,10 +205,9 @@
             <li>CCNP</li>
           </ul>
         </article>
-
-        <article class="training-card reveal">
+        <article class="training-card">
           <div class="training-head">
-            <span class="training-state completed">TRAINING</span>
+            <span class="training-state track">TRAINING</span>
             <span>CISCO / ALASCO</span>
           </div>
           <h3>Security Operations Training</h3>
@@ -286,8 +217,7 @@
             <li>ALASCO — Secure Gateway Log Analysis</li>
           </ul>
         </article>
-
-        <article class="training-card reveal progress-card">
+        <article class="training-card progress-card">
           <div class="training-head">
             <span class="training-state progress">IN PROGRESS</span>
             <span>CERTIFICATION TRACK</span>
@@ -303,60 +233,20 @@
       </div>
     </section>
 
-    <section class="section container" id="labs">
-      <div class="section-index reveal">05 // LAB FOCUS</div>
-      <div class="lab-panel reveal">
-        <div class="radar">
-          <div class="radar-ring r1"></div>
-          <div class="radar-ring r2"></div>
-          <div class="radar-ring r3"></div>
-          <div class="radar-line"></div>
-          <span class="radar-ping p1"></span>
-          <span class="radar-ping p2"></span>
-          <span class="radar-ping p3"></span>
-        </div>
-        <div class="lab-copy">
-          <p class="eyebrow">PRACTICAL LEARNING</p>
-          <h2>Hands-on labs over theory alone.</h2>
-          <p>
-            My practical security work spans offensive labs, defensive investigations, vulnerability analysis,
-            threat intelligence, malware analysis and realistic attack/defense scenarios through hands-on platforms and research.
-          </p>
-          <div class="lab-tags">
-            <span>TryHackMe</span>
-            <span>Hack The Box</span>
-            <span>Red Team</span>
-            <span>Blue Team</span>
-            <span>Threat Intelligence</span>
-            <span>Malware RE</span>
-            <span>Network Analysis</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section container" id="contact">
-      <div class="contact-card reveal">
-        <div>
-          <p class="eyebrow">GET IN TOUCH</p>
-          <h2>Let’s talk security.</h2>
-          <p>Open to cybersecurity learning, collaboration, technical projects and professional opportunities.</p>
-        </div>
+    <section class="section contact-section" id="contact" aria-labelledby="contact-title" tabindex="-1">
+      <div class="content-wrap">
+        <div class="section-label"><span aria-hidden="true">06</span><p>CONTACT</p></div>
+        <div class="contact-heading"><p class="eyebrow">GET IN TOUCH</p><h2 id="contact-title">Let’s talk<br>security<span aria-hidden="true">.</span></h2><p>Open to cybersecurity learning, collaboration, technical projects and professional opportunities.</p></div>
         <div class="contact-list">
-          <a href="mailto:yousifics91@gmail.com"><span>Email</span><strong>yousifics91@gmail.com ↗</strong></a>
-          <a href="https://github.com/Yousif9MohannAd" target="_blank" rel="noreferrer"><span>GitHub</span><strong>Yousif9MohannAd ↗</strong></a>
+          <a href="mailto:yousifics91@gmail.com"><span>Email</span><strong>yousifics91@gmail.com <span aria-hidden="true">↗</span></strong></a>
+          <a href="https://github.com/Yousif9MohannAd" target="_blank" rel="noopener noreferrer"><span>GitHub</span><strong>Yousif9MohannAd <span aria-hidden="true">↗</span></strong></a>
           <div><span>Location</span><strong>Baghdad, Iraq</strong></div>
           <div><span>LinkedIn</span><strong>yousif-mohannad-ics</strong></div>
         </div>
       </div>
     </section>
   </main>
-
-  <footer class="container footer">
-    <p>© <span id="year"></span> Yousif Mohannad.</p>
-    <p class="system"><i></i> security profile online</p>
-  </footer>
-
-  <script src="script.js"></script>
+  <footer class="site-footer"><div class="content-wrap"><p>© <span id="year">2026</span> Yousif Mohannad.</p><a href="#home">Back to top <span aria-hidden="true">↑</span></a></div></footer>
+  <script src="script.js" defer></script>
 </body>
 </html>

@@ -1,33 +1,36 @@
-YOUSIF MOHANNAD — CYBERSECURITY PORTFOLIO V3
+YOUSIF MOHANNAD — PERSONAL PORTFOLIO
 
-Built from the information in the supplied CV.
+A static portfolio built with HTML, CSS, and a small JavaScript enhancement.
+No package installation or build step is required.
 
 FILES
-- index.html
-- style.css
-- script.js
-- assets/profile.jpg
+- index.html — profile content and accessible native skill disclosures
+- style.css — dark layout, desktop sidebar, mobile navigation, and responsive screen styles
+- script.js — mobile menu, active-section navigation, and copyright year
 
-RUN
-Open index.html in Chrome, Edge, Firefox, or deploy to GitHub Pages / Netlify / Vercel / Cloudflare Pages.
+LOCAL PREVIEW
+Open index.html in a current browser, or serve this directory with a local static HTTP server.
+Google Fonts uses the existing external font links. System fonts are available as a fallback.
 
-IMPORTANT
-The LinkedIn handle was present in the CV but not a full URL, so the website displays it as text rather than inventing a link.
-Phone number was intentionally not published on this web portfolio by default. Add it only if you want it public.
+DESIGN AND NAVIGATION
+- Desktop: fixed sidebar with the current section highlighted.
+- Tablet/mobile: compact header with a keyboard-accessible disclosure menu.
+- Skill descriptions: native details/summary elements; SOC and network engineering start open.
+- About, skills, labs, experience, training, and contact retain stable anchor links.
+- Navigation and skill disclosures remain usable when JavaScript is unavailable.
+- Reduced-motion preferences disable smooth scrolling.
 
-NEXT CUSTOMIZATION
-- Add real certificate verification links / PDFs / badge images.
-- Add TryHackMe / Hack The Box profile links.
-- Add project writeups and screenshots.
-- Add a downloadable CV button.
+CONTENT
+Personal details, skill descriptions, experience, education, and all 18 course/study
+entries are retained from the supplied files. Training and current study keep their
+existing status labels. The LinkedIn handle remains text because a verified full URL
+was not supplied. No credentials, project results, or employment claims were added.
 
+REVIEW
+1. Check the sidebar and active-section indicator on desktop.
+2. Open the mobile menu; test Escape, Tab, and section links.
+3. Open and close skill details with a pointer and keyboard.
+4. Check the training labels and current-study entries.
+5. Confirm email, GitHub, location, and the displayed LinkedIn handle.
 
-V4 CHANGES
-- Removed personal photo entirely.
-- Added Red Teaming.
-- Expanded Penetration Testing.
-- Added Vulnerability Assessment / Identification / Exploitation.
-- Added Threat Intelligence Investigations.
-- Added Malware Reverse Engineering.
-- Added Security Testing / Detection Evasion & Bypass Investigation.
-- Replaced photo panel with an animated security operations dashboard.
+This change is prepared on a review branch. Publishing is a separate step after review.
