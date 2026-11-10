@@ -1,0 +1,13 @@
+{
+  "name": "yousif-j0-portfolio",
+  "private": true,
+  "type": "module",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "node build.mjs",
+    "test": "node --test tests/*.test.mjs"
+  },
+  "engines": {
+    "node": "22.x"
+  }
+}

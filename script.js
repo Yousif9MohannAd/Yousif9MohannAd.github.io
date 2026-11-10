@@ -1,13 +1,15 @@
 (() => {
   "use strict";
+  window.portfolioUIReady = Promise.resolve(window.portfolioReady).then(() => {
   const header = document.querySelector(".site-header");
   const menuBtn = document.getElementById("menuBtn");
   const nav = document.getElementById("navLinks");
-  const mobile = matchMedia("(max-width: 980px)");
+  const mobile = matchMedia("(max-width: 1120px)");
   const reduced = matchMedia("(prefers-reduced-motion: reduce)");
+  const isMenuMode = () => mobile.matches || header?.classList.contains("extended-navigation");
   if (menuBtn && nav) {
     const setMenu = (value, focus = false) => {
-      const open = value && mobile.matches;
+      const open = value && isMenuMode();
       const changed = menuBtn.getAttribute("aria-expanded") !== String(open);
       nav.classList.toggle("open", open);
       menuBtn.setAttribute("aria-expanded", String(open));
@@ -22,25 +24,57 @@
     document.addEventListener("click", event => { if (!header.contains(event.target) && menuBtn.getAttribute("aria-expanded") === "true") setMenu(false, nav.contains(document.activeElement)); });
     document.addEventListener("keydown", event => { if (event.key === "Escape" && menuBtn.getAttribute("aria-expanded") === "true") setMenu(false, true); });
     mobile.addEventListener("change", () => {
-      setMenu(false, mobile.matches && nav.contains(document.activeElement));
-      if (!mobile.matches && document.activeElement === menuBtn) (nav.querySelector('[aria-current="location"]') || nav.querySelector("a"))?.focus();
+      setMenu(false, isMenuMode() && nav.contains(document.activeElement));
+      if (!isMenuMode() && document.activeElement === menuBtn) (nav.querySelector('[aria-current="location"]') || nav.querySelector("a"))?.focus();
     });
     document.documentElement.classList.add("js-menu");
   }
 
-  const cards = [...document.querySelectorAll(".capability-card")];
+  const cards = [...document.querySelectorAll("#capabilityGrid .capability-card")];
   const scene = document.getElementById("sceneRoot");
+  const ambientVisuals = [...document.querySelectorAll('.mini-sculpture,.learning-placeholder,.platform-orbit,.contact-orbit')];
+  ambientVisuals.forEach(element=>element.classList.add('ambient-visual'));
+  if ('IntersectionObserver' in window) {
+    const ambientObserver = new IntersectionObserver(entries=>entries.forEach(entry=>entry.target.classList.toggle('ambient-running',entry.isIntersecting)),{rootMargin:'60px'});
+    ambientVisuals.forEach(element=>ambientObserver.observe(element));
+  } else ambientVisuals.forEach(element=>element.classList.add('ambient-running'));
+  const pauseControl = scene?.querySelector('[data-scene-action="pause"]');
+  const setAmbientPaused = paused => {
+    document.documentElement.dataset.ambientPaused=String(paused);
+    if(pauseControl){
+      pauseControl.setAttribute('aria-pressed',String(paused));
+      pauseControl.setAttribute('aria-label',paused?'Play motion':'Pause motion');
+      pauseControl.querySelector('.motion-label').textContent=paused?'Play':'Pause';
+      pauseControl.querySelector('.pause-symbol').textContent=paused?'▷':'Ⅱ';
+    }
+    scene?.dispatchEvent(new CustomEvent('ambientmotionchange',{detail:{paused}}));
+  };
+  pauseControl?.addEventListener('click',()=>setAmbientPaused(document.documentElement.dataset.ambientPaused!=='true'));
+  reduced.addEventListener('change',()=>setAmbientPaused(reduced.matches));
+  const suspendAmbient = () => {document.documentElement.dataset.ambientSuspended=String(document.hidden);};
+  document.addEventListener('visibilitychange',suspendAmbient);suspendAmbient();setAmbientPaused(reduced.matches);
+  const sceneHome = document.querySelector(".scene-home-slot");
+  let activeExplorer = null;
+  const returnSceneHome = () => {
+    if (sceneHome && scene && scene.parentElement !== sceneHome) {
+      sceneHome.appendChild(scene);
+      activeExplorer?.classList.remove("has-scene");
+      activeExplorer = null;
+    }
+  };
   const focusButtons = [...document.querySelectorAll(".focus-tabs button")];
   const focusSource = {
     defense: cards.find(card => card.dataset.category === "defense"),
     offense: cards.find(card => card.dataset.category === "offense"),
     research: cards.find(card => card.dataset.category === "research")
   };
-  const focusContent = Object.fromEntries(Object.entries(focusSource).map(([focus, card]) => [focus, card && {
-    title: card.querySelector("h3").textContent,
-    description: card.querySelector(".capability-body p").textContent
-  }]));
+  const focusContent = Object.fromEntries(["defense","offense","research"].map(focus => {
+    const skill = window.portfolioContent?.skills.find(item => item.category === focus);
+    const card = focusSource[focus];
+    return [focus, skill || (card && { title:card.querySelector("h3").textContent,description:card.querySelector(".capability-body p").textContent }) || {title:focus[0].toUpperCase()+focus.slice(1),description:"Explore this view of the security sculpture."}];
+  }));
   focusButtons.forEach(button => button.addEventListener("click", () => {
+    returnSceneHome();
     const focus = button.dataset.focus;
     const copy = focusContent[focus];
     if (!copy || !scene) return;
@@ -48,8 +82,38 @@
     document.getElementById("focusTitle").textContent = copy.title;
     document.getElementById("focusDescription").textContent = copy.description;
     scene.dataset.focus = focus;
+    delete scene.dataset.study;
+    document.querySelectorAll("[data-study-id]").forEach(item => item.setAttribute("aria-pressed", "false"));
     scene.dispatchEvent(new CustomEvent("focuschange", { detail: focus }));
   }));
+  document.querySelectorAll("[data-study-id]").forEach(button => button.addEventListener("click", () => {
+    const learning = window.portfolioContent?.learning || [];
+    const index = learning.findIndex(item => item.id === button.dataset.studyId);
+    const item = learning[index];
+    if (!item || !scene) return;
+    const focus = /ai|malware|research/i.test(item.title) ? "research" : "defense";
+    focusButtons.forEach(control => control.setAttribute("aria-pressed", String(control.dataset.focus === focus)));
+    document.querySelectorAll("[data-study-id]").forEach(control => control.setAttribute("aria-pressed", String(control === button)));
+    document.getElementById("focusTitle").textContent = item.title;
+    document.getElementById("focusDescription").textContent = "Currently studying. Select another focus to explore the scene.";
+    scene.dataset.focus = focus; scene.dataset.study = item.id;
+    scene.dispatchEvent(new CustomEvent("focuschange", { detail:focus }));
+    scene.dispatchEvent(new CustomEvent("specialtychange", { detail:{ id:item.id,index,focus } }));
+    const explorer = button.closest(".learning-explorer");
+    const stage = explorer?.querySelector(".learning-preview-stage");
+    if (stage) {
+      activeExplorer?.classList.remove("has-scene");
+      stage.appendChild(scene); activeExplorer = explorer; explorer.classList.add("has-scene");
+      explorer.querySelector(".learning-preview-title").textContent = item.title;
+      explorer.querySelector(".learning-preview-note").textContent = "Currently studying · drag to explore the form.";
+      document.dispatchEvent(new CustomEvent("portfolio:layout", { detail:{ scope:".learning-explorer",animate:false } }));
+    }
+  }));
+  document.querySelector(".identity-name")?.addEventListener("click", () => {returnSceneHome();scene?.dispatchEvent(new Event("identityactivate"));});
+  document.querySelectorAll('.brand,.footer-brand').forEach(link => link.addEventListener("click", () => {returnSceneHome();scene?.dispatchEvent(new Event("identityactivate"));}));
+  if (sceneHome && "IntersectionObserver" in window) new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting) returnSceneHome();
+  }, { threshold:.05 }).observe(sceneHome);
 
   let skillFilter = "all";
   const search = document.getElementById("skillSearch");
@@ -141,4 +205,5 @@
   const year = document.getElementById("year"); if (year) year.textContent = String(new Date().getFullYear());
   document.documentElement.classList.add("js");
   updateNavigation();
+  });
 })();
