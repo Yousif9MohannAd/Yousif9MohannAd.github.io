@@ -1,0 +1,159 @@
+{
+  "schemaVersion": 1,
+  "profile": {
+    "brand": "Yousif.J0",
+    "name": "Yousif Mohannad",
+    "role": "Cyber Security Engineer",
+    "location": "Baghdad, Iraq",
+    "email": "yousifics91@gmail.com",
+    "github": "https://github.com/Yousif9MohannAd",
+    "linkedinHandle": "yousif-mohannad-ics",
+    "summary": "Hands-on cybersecurity practitioner working across offensive and defensive security, including penetration testing, red teaming, vulnerability research, threat intelligence, malware analysis, network security and security detection engineering.",
+    "about": [
+      "I am a cybersecurity engineer with a practical Blue Team focus, including threat detection, log analysis and incident response. I work with Splunk, Wireshark and Suricata to understand network behavior and identify malicious activity.",
+      "I actively train through TryHackMe and Hack The Box labs, with a strong interest in SIEM, secure network protocols, SOC procedures and continuous hands-on learning."
+    ],
+    "disciplines": "PENETRATION TESTING • RED TEAMING • BLUE TEAM • SECURITY RESEARCH",
+    "education": "Cyber Security Engineering",
+    "focus": "Blue Team / SOC",
+    "availability": "Open to cybersecurity learning, collaboration, technical projects and professional opportunities."
+  },
+  "skills": [
+    {
+      "id": "blue-team-soc",
+      "title": "Blue Team / SOC",
+      "description": "Threat detection, alert triage, log analysis, incident response and SOC workflows.",
+      "tags": ["Splunk", "SIEM", "Log Analysis", "SOC L1/L2"],
+      "category": "defense",
+      "section": "skills"
+    },
+    {
+      "id": "network-security",
+      "title": "Network & Security Engineering",
+      "description": "Traffic inspection, IDS monitoring, firewall configuration, secure networking and system troubleshooting.",
+      "tags": ["Wireshark", "Suricata", "FortiGate", "Python"],
+      "category": "defense",
+      "section": "skills"
+    },
+    {
+      "id": "penetration-testing",
+      "title": "Penetration Testing",
+      "description": "Security assessment workflows across web applications, systems and network attack surfaces.",
+      "tags": ["Recon", "Enumeration", "Exploitation", "Reporting"],
+      "category": "offense",
+      "section": "skills"
+    },
+    {
+      "id": "red-teaming",
+      "title": "Red Teaming",
+      "description": "Adversary-focused testing, attack-path analysis and controlled emulation of realistic intrusion techniques.",
+      "tags": ["Adversary Emulation", "Attack Paths", "OPSEC", "Tradecraft"],
+      "category": "offense",
+      "section": "skills"
+    },
+    {
+      "id": "vulnerability-assessment",
+      "title": "Vulnerability Assessment",
+      "description": "Vulnerability identification, validation, prioritization and exploitation analysis across exposed services.",
+      "tags": ["Identification", "Validation", "Exploitation", "Risk"],
+      "category": "offense",
+      "section": "skills"
+    },
+    {
+      "id": "threat-intelligence",
+      "title": "Threat Intelligence Investigations",
+      "description": "Investigation of indicators, infrastructure, attacker behavior and threat context to support security decisions.",
+      "tags": ["IOC Analysis", "OSINT", "Attribution Support", "Threat Context"],
+      "category": "research",
+      "section": "skills"
+    },
+    {
+      "id": "malware-re",
+      "title": "Malware Reverse Engineering",
+      "description": "Static and dynamic malware analysis with emphasis on behavior, indicators and reverse-engineering workflows.",
+      "tags": ["Static Analysis", "Dynamic Analysis", "Behavior", "RE"],
+      "category": "research",
+      "section": "skills"
+    },
+    {
+      "id": "detection-evasion",
+      "title": "Detection Evasion & Bypass Investigation",
+      "description": "Security testing focused on understanding defensive controls, detection gaps and bypass-resistant mitigations.",
+      "tags": ["Detection Testing", "EDR Concepts", "Bypass Analysis", "Hardening"],
+      "category": "research",
+      "section": "skills"
+    }
+  ],
+  "learning": [
+    { "id": "learn-system-admin", "title": "System Administration", "status": "studying", "section": "learning" },
+    { "id": "learn-ai-security", "title": "AI Security", "status": "studying", "section": "learning" },
+    { "id": "learn-servers", "title": "Servers", "status": "studying", "section": "learning" },
+    { "id": "learn-malware-analysis", "title": "Malware Analysis", "status": "studying", "section": "learning" },
+    { "id": "learn-network-security", "title": "Network Security", "status": "studying", "section": "learning" },
+    { "id": "learn-security-research", "title": "Security Research", "status": "studying", "section": "learning" },
+    { "id": "learn-grc", "title": "GRC", "status": "studying", "section": "learning" },
+    { "id": "learn-information-security", "title": "Information Security", "status": "studying", "section": "learning" }
+  ],
+  "sections": [
+    { "id": "home", "title": "Yousif Mohannad", "visible": true },
+    { "id": "about", "title": "Defensive thinking. Offensive curiosity.", "eyebrow": "THE MINDSET", "visible": true },
+    { "id": "skills", "title": "My security stack.", "eyebrow": "CAPABILITIES", "description": "Offensive, defensive and investigative security capabilities across modern attack and defense workflows.", "visible": true },
+    { "id": "learning", "title": "Currently studying.", "eyebrow": "CURRENT FOCUS", "visible": true },
+    { "id": "labs", "title": "Hands-on labs over theory alone.", "eyebrow": "PRACTICAL LEARNING", "visible": true },
+    { "id": "experience", "title": "Experience & education.", "eyebrow": "BACKGROUND", "visible": true },
+    { "id": "certificates", "title": "Training progression.", "eyebrow": "LEARNING JOURNEY", "description": "Hands-on learning across security operations, networking and offensive security. Course paths and certification study are listed separately.", "visible": true },
+    { "id": "intelligence", "title": "Security intelligence.", "visible": true },
+    { "id": "contact", "title": "Let’s talk security.", "eyebrow": "LET’S CONNECT", "visible": true }
+  ],
+  "experience": [
+    {
+      "id": "maintenance",
+      "period": "5 YEARS",
+      "type": "FREELANCE EXPERIENCE",
+      "title": "Computer Maintenance Engineer",
+      "description": "Diagnosing hardware and software issues, installing and configuring operating systems, supporting laptop sales with post-sale technical support, and providing customer service."
+    },
+    {
+      "id": "al-shaab",
+      "period": "2022 — 2026",
+      "type": "EDUCATION",
+      "title": "AL-Shaab University",
+      "description": "College of Engineering and Information Technology — Cyber Security Engineer, Stage 4."
+    }
+  ],
+  "training": [
+    {
+      "id": "security-soc-paths",
+      "status": "TRAINING",
+      "source": "TRYHACKME",
+      "title": "Security & SOC Paths",
+      "items": ["Security Engineer", "DevSecOps", "SOC Level 1", "Advent of Cyber 2024–2025", "CompTIA Pentest+ Path", "Blue Team Labs — Practical Experience"]
+    },
+    {
+      "id": "core-technical",
+      "status": "COURSES",
+      "source": "NETWORK / IT",
+      "title": "Core Technical Courses",
+      "items": ["CompTIA A+", "CompTIA Network+", "CompTIA Security+", "CCNA", "CCNP"]
+    },
+    {
+      "id": "security-operations",
+      "status": "TRAINING",
+      "source": "CISCO / ALASCO",
+      "title": "Security Operations Training",
+      "items": ["Cisco — Network Technician", "Cisco — Security Operations and the Defense Analyst", "ALASCO — Secure Gateway Log Analysis"]
+    },
+    {
+      "id": "current-study",
+      "status": "IN PROGRESS",
+      "source": "CERTIFICATION TRACK",
+      "title": "Current Study",
+      "items": ["eJPT", "ICCA", "CRTA", "Additional CompTIA study"]
+    }
+  ],
+  "labs": {
+    "summary": "My practical security work spans offensive labs, defensive investigations, vulnerability analysis, threat intelligence, malware analysis and realistic attack/defense scenarios through hands-on platforms and research.",
+    "tags": ["TryHackMe", "Hack The Box", "Red Team", "Blue Team", "Threat Intelligence", "Malware RE", "Network Analysis"],
+    "platforms": ["TryHackMe", "Hack The Box"]
+  }
+}

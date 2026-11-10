@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#090916">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="same-origin">
+  <title>Yousif.J0 Studio — Content editor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="studio.css">
+  <script src="studio.js" defer></script>
+  <script src="studio-online.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#editor">Skip to editor</a>
+  <header class="studio-header">
+    <a class="studio-brand" href="index.html" aria-label="Yousif.J0 — back to portfolio"><span class="brand-mark" aria-hidden="true">Y.</span><span>Yousif<span class="brand-accent">.J0</span><small>PERSONAL STUDIO</small></span></a>
+    <div class="header-actions">
+      <button class="button button-quiet" id="importButton" type="button">Import JSON</button>
+      <button class="button button-primary" id="exportButton" type="button" disabled>Export content <span aria-hidden="true">↗</span></button>
+      <button class="button button-primary" id="publishButton" type="button" disabled>Checking connection…</button>
+      <button class="button button-quiet" id="logoutButton" type="button" hidden>Sign out</button>
+      <a class="button button-quiet preview-link" href="index.html" target="_blank" rel="noopener">View site <span aria-hidden="true">↗</span></a>
+    </div>
+  </header>
+
+  <div class="studio-layout">
+    <aside class="workspace-nav" aria-label="Editor navigation">
+      <p class="nav-caption">YOUR WORKSPACE</p>
+      <nav aria-label="Content categories">
+        <button type="button" class="nav-item active" data-tab="profile" aria-pressed="true" aria-controls="panel-profile" disabled><span class="nav-index" aria-hidden="true">01</span> Profile <span aria-hidden="true">↗</span></button>
+        <button type="button" class="nav-item" data-tab="skills" aria-pressed="false" aria-controls="panel-skills" disabled><span class="nav-index" aria-hidden="true">02</span> Skills <span class="nav-count" id="skillsCount">—</span></button>
+        <button type="button" class="nav-item" data-tab="learning" aria-pressed="false" aria-controls="panel-learning" disabled><span class="nav-index" aria-hidden="true">03</span> Learning <span class="nav-count" id="learningCount">—</span></button>
+        <button type="button" class="nav-item" data-tab="sections" aria-pressed="false" aria-controls="panel-sections" disabled><span class="nav-index" aria-hidden="true">04</span> Sections <span class="nav-count" id="sectionsCount">—</span></button>
+      </nav>
+      <div class="workspace-note"><span class="status-dot" aria-hidden="true"></span><strong id="storageTitle">Local draft</strong><p id="storageDescription">Edits stay in this browser. The public site changes only after publishing.</p></div>
+      <button class="reset-button" id="resetButton" type="button" disabled>Reset to loaded site data</button>
+    </aside>
+
+    <main id="editor" tabindex="-1">
+      <div class="workspace-heading"><p class="eyebrow">MAKE IT YOURS</p><h1>Your site.<br><span>Your next chapter.</span></h1><p>Keep your profile current, place your skills, and shape what visitors see.</p></div>
+      <section class="connection-panel" id="connectionPanel" aria-labelledby="connectionHeading"><div><p class="eyebrow">OWNER WORKSPACE</p><h2 id="connectionHeading">Connect your account.</h2><p id="connectionMessage">Checking the online editor connection. Local drafts remain on this device.</p><p class="connection-meta" id="connectionMeta" hidden></p></div><div class="connection-actions"><button class="button button-primary" id="loginButton" type="button" disabled>Owner sign-in</button><button class="text-button" id="refreshConnection" type="button">Check connection</button></div></section>
+      <div class="draft-bar"><span id="saveState" role="status" aria-live="polite">Loading site content…</span><span id="savedAt"></span></div>
+      <div class="editor-error" id="editorError" role="alert" tabindex="-1" hidden><strong id="errorTitle">Please check your draft</strong><ul id="errorList"></ul></div>
+      <div class="undo-bar" id="undoBar" hidden><p id="undoMessage"></p><button type="button" class="text-button" id="undoRemove">Undo remove</button></div>
+      <div class="conflict-panel" id="conflictPanel" role="alert" hidden><h2>Your draft needs reconciliation.</h2><p>Your local draft is safe. Export it before loading the latest version, then reconcile your changes. The editor will not overwrite an unseen revision or discard edits made while loading.</p><div class="conflict-actions"><button type="button" class="button button-quiet" id="conflictExport">Export my draft</button><button type="button" class="button button-primary" id="reloadOnlineButton">Load latest online version</button></div></div>
+      <section class="load-state" id="loadState" aria-label="Loading editor"><div class="loading-orbit" aria-hidden="true"></div><h2 id="loadTitle">Opening your workspace</h2><p id="loadMessage">Reading the published content file.</p><button type="button" class="button button-quiet" id="retryButton" hidden>Try again</button></section>
+
+      <section class="editor-panel" id="panel-profile" aria-labelledby="profileHeading" hidden>
+        <div class="panel-heading"><div><p class="eyebrow">01 / IDENTITY</p><h2 id="profileHeading" tabindex="-1">The introduction.</h2></div><span class="panel-tag">PROFILE</span></div>
+        <form id="profileForm" class="profile-form" novalidate>
+          <fieldset id="profileFields" disabled><legend class="sr-only">Profile information</legend>
+            <div class="field-grid">
+              <label>Site name<input data-profile="brand" type="text" maxlength="160" required autocomplete="off"><small>The name used for your website.</small></label>
+              <label>Your name<input data-profile="name" type="text" maxlength="160" required autocomplete="name"></label>
+              <label class="field-wide">Professional title<input data-profile="role" type="text" maxlength="160" required autocomplete="organization-title"><small>Use the title that accurately describes your current work.</small></label>
+              <label class="field-wide">Introduction<textarea data-profile="summary" rows="4" maxlength="4000"></textarea></label>
+              <label class="field-wide">Focus line<input data-profile="disciplines" type="text" maxlength="4000"><small>Short disciplines or interests, as you want them written.</small></label>
+              <label class="field-wide">About you<textarea data-profile="about" rows="7" maxlength="64000"></textarea><small>Separate paragraphs with a blank line.</small></label>
+              <label>Location<input data-profile="location" type="text" maxlength="200" autocomplete="address-level2"></label>
+              <label>Email<input data-profile="email" type="email" maxlength="254" autocomplete="email" inputmode="email"></label>
+              <label class="field-wide">GitHub URL<input data-profile="github" type="url" maxlength="1000" inputmode="url" spellcheck="false" placeholder="https://github.com/your-username"></label>
+              <label>LinkedIn handle<input data-profile="linkedinHandle" type="text" maxlength="200" spellcheck="false"><small>Displayed as text, as supplied.</small></label>
+              <label>Primary focus<input data-profile="focus" type="text" maxlength="200"></label>
+              <label class="field-wide">Education summary<input data-profile="education" type="text" maxlength="200"></label>
+              <label class="field-wide">Contact introduction<textarea data-profile="availability" rows="3" maxlength="4000"></textarea></label>
+            </div>
+          </fieldset>
+        </form>
+      </section>
+
+      <section class="editor-panel" id="panel-skills" aria-labelledby="skillsHeading" hidden>
+        <div class="panel-heading"><div><p class="eyebrow">02 / CAPABILITIES</p><h2 id="skillsHeading" tabindex="-1">Keep growing.</h2></div><button type="button" class="button button-primary" id="addSkill">Add skill <span aria-hidden="true">+</span></button></div>
+        <p class="panel-intro">Edit the skills you want to describe, then choose any section where each item should appear.</p>
+        <div id="skillsList" class="item-list"></div>
+        <p class="empty-state" id="skillsEmpty" hidden>No skills in this draft yet. Add one when you are ready.</p>
+      </section>
+
+      <section class="editor-panel" id="panel-learning" aria-labelledby="learningHeading" hidden>
+        <div class="panel-heading"><div><p class="eyebrow">03 / IN PROGRESS</p><h2 id="learningHeading" tabindex="-1">What comes next.</h2></div><button type="button" class="button button-primary" id="addLearning">Add topic <span aria-hidden="true">+</span></button></div>
+        <p class="panel-intro">These topics are presented as current study. Moving an item keeps that status.</p>
+        <div id="learningList" class="item-list"></div>
+        <p class="empty-state" id="learningEmpty" hidden>No current-study topics in this draft yet.</p>
+      </section>
+
+      <section class="editor-panel" id="panel-sections" aria-labelledby="sectionsHeading" hidden>
+        <div class="panel-heading"><div><p class="eyebrow">04 / PAGE STRUCTURE</p><h2 id="sectionsHeading" tabindex="-1">Set the sequence.</h2></div><button type="button" class="button button-primary" id="addSection">Add section <span aria-hidden="true">+</span></button></div>
+        <p class="panel-intro">Arrange sections, adjust their headings, and choose which ones appear. The introduction stays first and visible; section identities remain stable.</p>
+        <div id="sectionsList" class="section-list"></div>
+      </section>
+      <div class="publish-note"><p class="eyebrow">FROM DRAFT TO WEBSITE</p><p id="publishInstructions">Export <strong>content.json</strong> when your draft is ready. Upload it through your GitHub account and review the site update before publishing.</p><a href="https://github.com/Yousif9MohannAd/Yousif9MohannAd.github.io" target="_blank" rel="noopener noreferrer">Open your repository <span aria-hidden="true">↗</span></a><button type="button" class="text-button" id="resetCompact" disabled>Reset device draft</button></div>
+    </main>
+
+    <aside class="preview-column" aria-label="Draft profile preview">
+      <div class="preview-heading"><span class="eyebrow">PROFILE SNAPSHOT</span><span class="preview-label">DRAFT</span></div>
+      <div class="profile-preview"><div class="preview-art" aria-hidden="true"><i></i><span></span><span></span></div><p class="preview-brand" id="previewBrand">Yousif.J0</p><h2 id="previewName">Your profile</h2><p class="preview-role" id="previewRole">Your professional title</p><p class="preview-summary" id="previewSummary">Your introduction appears here as you edit.</p><div class="preview-meta"><span id="previewLocation"></span><span id="previewFocus"></span></div><div class="preview-study" id="previewStudyWrap" hidden><h3>Currently studying</h3><div id="previewStudy" class="preview-tags"></div></div></div>
+      <p class="preview-footnote">This snapshot updates with your draft. It is not a public-site publish confirmation.</p>
+    </aside>
+  </div>
+
+  <input id="importFile" type="file" accept="application/json,.json" class="sr-only" tabindex="-1" aria-label="Import content JSON">
+  <dialog id="resetDialog" aria-labelledby="resetTitle"><form method="dialog"><p class="eyebrow">RESET LOCAL DRAFT</p><h2 id="resetTitle">Start from the loaded site data?</h2><p>This replaces the draft saved in this browser. Export a copy first if you want to keep it.</p><div class="dialog-actions"><button class="button button-quiet" value="cancel" autofocus>Keep editing</button><button class="button button-primary" value="reset">Reset draft</button></div></form></dialog>
+  <dialog id="sectionDialog" aria-labelledby="sectionDialogTitle"><form id="sectionForm"><p class="eyebrow">GIVE IT A PLACE</p><h2 id="sectionDialogTitle">Add a section.</h2><div class="field-grid"><label class="field-wide">Section heading<input id="newSectionTitle" type="text" maxlength="200" required autocomplete="off"></label><label class="field-wide">Introduction<textarea id="newSectionDescription" rows="3" maxlength="4000"></textarea></label></div><p>A stable section ID is created automatically. You can place skills and study topics here.</p><div class="dialog-actions"><button type="button" class="button button-quiet" id="cancelSection">Cancel</button><button type="submit" class="button button-primary">Add section</button></div></form></dialog>
+
+  <template id="skillTemplate"><article class="item-card"><div class="item-card-head"><div><span class="item-number"></span><h3 class="item-title"></h3></div><button class="remove-item" type="button">Remove</button></div><div class="field-grid"><label class="field-wide">Skill title<input data-field="title" type="text" maxlength="200" required></label><label class="field-wide">Description<textarea data-field="description" rows="3" maxlength="4000"></textarea></label><label class="field-wide">Tags<input data-field="tags" type="text" maxlength="3000"><small>Separate tags with commas.</small></label><label>Category<select data-field="category"><option value="defense">Defense</option><option value="offense">Offense</option><option value="research">Research</option></select></label><label>Place in section<select data-field="section"><option value="skills">Skills</option><option value="learning">Learning</option></select></label></div><p class="placement-note"></p></article></template>
+  <template id="learningTemplate"><article class="item-card"><div class="item-card-head"><div><span class="item-number"></span><h3 class="item-title"></h3></div><button class="remove-item" type="button">Remove</button></div><div class="field-grid"><label>Study topic<input data-field="title" type="text" maxlength="200" required></label><label>Place in section<select data-field="section"><option value="learning">Learning</option><option value="skills">Skills</option></select></label></div><div class="learning-state"><span class="study-dot" aria-hidden="true"></span> Currently studying</div><p class="placement-note"></p></article></template>
+  <template id="sectionTemplate"><article class="section-card"><div class="section-card-head"><div class="section-identity"><span class="item-number"></span><h3 class="section-name"></h3></div><div class="section-controls"><label class="visibility-control"><input data-section-field="visible" type="checkbox"><span>Visible</span></label><button type="button" class="move-section" data-direction="up"><span aria-hidden="true">↑</span></button><button type="button" class="move-section" data-direction="down"><span aria-hidden="true">↓</span></button></div></div><details><summary>Edit section text</summary><div class="field-grid"><label class="field-wide">Heading<input data-section-field="title" type="text" maxlength="200" required></label><label class="field-wide">Introduction<textarea data-section-field="description" rows="3" maxlength="4000"></textarea></label></div></details></article></template>
+</body>
+</html>

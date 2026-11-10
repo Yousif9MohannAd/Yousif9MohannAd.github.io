@@ -1,0 +1,22 @@
+{
+  "name": "Yousif.J0 Private Studio",
+  "url": "https://yousif9-mohann-ad-github-io.vercel.app",
+  "description": "Owner-only portfolio editing for Yousif9MohannAd/Yousif9MohannAd.github.io. The Studio server commits only content.json on its configured branch.",
+  "public": false,
+  "hook_attributes": {
+    "url": "https://yousif9-mohann-ad-github-io.vercel.app",
+    "active": false
+  },
+  "callback_urls": [
+    "https://yousif9-mohann-ad-github-io-git-codex-portfolio-d6003b-jo-45f5.vercel.app/api/studio/callback",
+    "https://yousif9-mohann-ad-github-io.vercel.app/api/studio/callback"
+  ],
+  "setup_url": "https://yousif9-mohann-ad-github-io-git-codex-portfolio-d6003b-jo-45f5.vercel.app/studio.html",
+  "default_permissions": {
+    "contents": "write",
+    "metadata": "read"
+  },
+  "default_events": [],
+  "request_oauth_on_install": false,
+  "setup_on_update": false
+}

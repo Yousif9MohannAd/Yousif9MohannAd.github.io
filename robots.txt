@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /studio.html
+Disallow: /api/studio/
+Sitemap: https://yousif9-mohann-ad-github-io.vercel.app/sitemap.xml
