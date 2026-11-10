@@ -8,6 +8,9 @@ FILES
 - style.css — indigo/lilac visual system, responsive layouts, card tilt, and motion preferences
 - script.js — navigation, focus modes, skill search/filters, training filter, and card interactions
 - scene.js — procedural 3D sculpture, lighting, camera, pointer controls, and rendering lifecycle
+- motion.js — coordinated GSAP text entrances and ScrollTrigger lifecycle
+- gsap.min.js, ScrollTrigger.min.js, SplitText.min.js — self-hosted GSAP 3.15.1 and its plugins
+- GSAP-NOTICE.txt — the upstream license notice and official license link
 - three.min.js — self-hosted Three.js 0.187.0 browser bundle
 - THREE-LICENSE.txt — the upstream Three.js MIT license
 - README.txt — this guide
@@ -27,7 +30,12 @@ DESIGN AND NAVIGATION
 - The training section can show all learning or only the original current-study card.
 - About, skills, labs, experience, training, and contact retain stable anchor links.
 - Navigation and skill disclosures remain usable when JavaScript is unavailable.
-- Reduced-motion preferences pause automatic 3D movement and disable card tilt and reveal transitions.
+- GSAP reveals headings by masked lines and brings paragraphs, labels, lists, tags, and controls into view with a shared timing rhythm.
+- Text reveals once, then restores its native HTML. Narrow screens use shorter movements and durations.
+- SplitText handles font loading and line reflow; completed text does not replay when resizing or scrolling back.
+- Search, filters, mobile navigation, and skill disclosures refresh the scroll measurements after layout changes.
+- Keyboard focus reveals its target immediately. A missing animation library leaves all content visible.
+- Reduced-motion preferences pause automatic 3D movement and disable text entrances and card tilt.
 - Rendering stops offscreen or when the tab is hidden. Resolution is capped, with lighter geometry on mobile.
 - When WebGL or the local 3D library is unavailable, CSS artwork replaces the sculpture.
 - The 3D scene uses generated geometry and reflections; there are no remote model/texture downloads.
@@ -38,6 +46,11 @@ published SHA-512 integrity value. The local IIFE bundle exposes window.THREE an
 was built with esbuild 0.28.2 from this entry: import * as THREE from 'three';
 window.THREE = THREE; . The upstream MIT license is included. Deployment needs
 only these static files; no package installation or build service is required.
+
+GSAP 3.15.1, ScrollTrigger, and SplitText are unmodified files from the official
+npm package, checked against its published SHA-512 integrity value. Their upstream
+copyright headers remain intact. GSAP-NOTICE.txt preserves the package's license
+notice and links to the official standard license; GSAP is not MIT-licensed.
 
 CONTENT
 Personal details, skill descriptions, experience, education, and all 18 course/study
@@ -51,5 +64,7 @@ REVIEW
 3. Search/filter skills; open and close their details with a pointer and keyboard.
 4. Switch the training filter; check the original labels and current-study entries.
 5. Confirm email, GitHub, location, and the displayed LinkedIn handle.
+6. Scroll gradually through every section, scroll back, resize during an entrance,
+   and rapidly change filters. Text should settle clearly without replay or clipping.
 
 This change is prepared on a review branch. Publishing is a separate step after review.

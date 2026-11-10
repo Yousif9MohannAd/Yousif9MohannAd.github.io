@@ -8,11 +8,13 @@
   if (menuBtn && nav) {
     const setMenu = (value, focus = false) => {
       const open = value && mobile.matches;
+      const changed = menuBtn.getAttribute("aria-expanded") !== String(open);
       nav.classList.toggle("open", open);
       menuBtn.setAttribute("aria-expanded", String(open));
       menuBtn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
       menuBtn.querySelector(".menu-label").textContent = open ? "Close" : "Menu";
       if (focus) menuBtn.focus();
+      if (changed) document.dispatchEvent(new CustomEvent("portfolio:menu", { detail: { open } }));
     };
     menuBtn.addEventListener("click", () => setMenu(menuBtn.getAttribute("aria-expanded") !== "true"));
     header.addEventListener("click", event => { if (event.target.closest('a[href^="#"]')) setMenu(false); });
@@ -34,13 +36,17 @@
     offense: cards.find(card => card.dataset.category === "offense"),
     research: cards.find(card => card.dataset.category === "research")
   };
+  const focusContent = Object.fromEntries(Object.entries(focusSource).map(([focus, card]) => [focus, card && {
+    title: card.querySelector("h3").textContent,
+    description: card.querySelector(".capability-body p").textContent
+  }]));
   focusButtons.forEach(button => button.addEventListener("click", () => {
     const focus = button.dataset.focus;
-    const card = focusSource[focus];
-    if (!card || !scene) return;
+    const copy = focusContent[focus];
+    if (!copy || !scene) return;
     focusButtons.forEach(item => item.setAttribute("aria-pressed", String(item === button)));
-    document.getElementById("focusTitle").textContent = card.querySelector("h3").textContent;
-    document.getElementById("focusDescription").textContent = card.querySelector(".capability-body p").textContent;
+    document.getElementById("focusTitle").textContent = copy.title;
+    document.getElementById("focusDescription").textContent = copy.description;
     scene.dataset.focus = focus;
     scene.dispatchEvent(new CustomEvent("focuschange", { detail: focus }));
   }));
@@ -49,7 +55,7 @@
   const search = document.getElementById("skillSearch");
   const skillFilters = [...document.querySelectorAll("[data-skill-filter]")];
   const index = new Map(cards.map(card => [card, card.textContent.toLocaleLowerCase()]));
-  const filterSkills = () => {
+  const filterSkills = (animate = false) => {
     const query = search.value.trim().toLocaleLowerCase();
     let count = 0;
     cards.forEach(card => {
@@ -59,17 +65,19 @@
     });
     document.getElementById("skillCount").textContent = count + (count === 1 ? " capability" : " capabilities");
     document.getElementById("emptySkills").hidden = count !== 0;
+    document.dispatchEvent(new CustomEvent("portfolio:layout", { detail: { scope: "#capabilityGrid", animate } }));
   };
   skillFilters.forEach(button => button.addEventListener("click", () => {
     skillFilter = button.dataset.skillFilter;
     skillFilters.forEach(item => item.setAttribute("aria-pressed", String(item === button)));
-    filterSkills();
+    filterSkills(true);
   }));
-  search?.addEventListener("input", filterSkills);
+  search?.addEventListener("input", () => filterSkills());
   const trainingFilters = [...document.querySelectorAll("[data-training-filter]")];
   trainingFilters.forEach(button => button.addEventListener("click", () => {
     trainingFilters.forEach(item => item.setAttribute("aria-pressed", String(item === button)));
     document.querySelectorAll(".training-card").forEach(card => { card.hidden = button.dataset.trainingFilter !== "all" && card.dataset.training !== button.dataset.trainingFilter; });
+    document.dispatchEvent(new CustomEvent("portfolio:layout", { detail: { scope: ".training-grid", animate: true } }));
   }));
 
   const finePointer = matchMedia("(hover: hover) and (pointer: fine)");
@@ -103,21 +111,10 @@
     link.addEventListener("pointerleave", () => { link.style.removeProperty("--magnet-x"); link.style.removeProperty("--magnet-y"); });
   });
 
-  if ("IntersectionObserver" in window && !reduced.matches) {
-    const reveal = new IntersectionObserver(entries => entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      entry.target.classList.remove("reveal-pending"); entry.target.classList.add("reveal-visible"); reveal.unobserve(entry.target);
-    }), { threshold: .06, rootMargin: "0px 0px 30px 0px" });
-    document.querySelectorAll(".section .section-label,.display-title,.about-text,.capability-grid,.platform-stage,.timeline-item,.training-grid").forEach(element => {
-      if (element.getBoundingClientRect().top > innerHeight + 40) { element.classList.add("reveal-pending"); reveal.observe(element); }
-    });
-    reduced.addEventListener("change", () => { if (reduced.matches) { reveal.disconnect(); document.querySelectorAll(".reveal-pending").forEach(element => element.classList.remove("reveal-pending")); } });
-  }
   document.addEventListener("click", event => {
     const link = event.target.closest('a[href^="#"]');
     const target = link && document.getElementById(link.hash.slice(1));
     if (!target) return;
-    target.classList.remove("reveal-pending"); target.querySelectorAll(".reveal-pending").forEach(element => element.classList.remove("reveal-pending"));
     target.focus({ preventScroll: true });
   });
   const sections = [...document.querySelectorAll("main > section[id]")];

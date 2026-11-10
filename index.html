@@ -11,6 +11,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
+  <script src="gsap.min.js" defer></script>
+  <script src="ScrollTrigger.min.js" defer></script>
+  <script src="SplitText.min.js" defer></script>
+  <script src="motion.js" defer></script>
   <script src="three.min.js" defer></script>
   <script src="scene.js" defer></script>
 </head>
@@ -29,7 +33,7 @@
 
   <main id="main" tabindex="-1">
     <section class="hero section-anchor" id="home" aria-labelledby="home-title" tabindex="-1">
-      <div class="hero-heading wrap"><p class="hero-eyebrow"><span aria-hidden="true"></span> CYBER SECURITY ENGINEER</p><h1 id="home-title">Yousif<br><span>Mohannad.</span></h1><p class="hero-disciplines">PENETRATION TESTING • RED TEAMING • BLUE TEAM • SECURITY RESEARCH</p></div>
+      <div class="hero-heading wrap"><p class="hero-eyebrow"><span aria-hidden="true"></span> CYBER SECURITY ENGINEER</p><h1 id="home-title">Yousif<br> <span class="title-accent">Mohannad.</span></h1><p class="hero-disciplines">PENETRATION TESTING • RED TEAMING • BLUE TEAM • SECURITY RESEARCH</p></div>
       <div class="scene-root" id="sceneRoot" role="group" aria-label="Interactive security sculpture" data-scene-state="loading" data-focus="defense">
         <div class="orb-fallback" aria-hidden="true"><div></div><span></span><i></i></div>
         <canvas id="securityCanvas" aria-hidden="true"></canvas>
@@ -46,7 +50,7 @@
       <div class="hero-foot wrap"><a class="scroll-cue" href="#about"><span aria-hidden="true">↓</span> SCROLL TO EXPLORE</a><dl class="profile-facts"><div><dt>BASED IN</dt><dd>Baghdad, Iraq</dd></div><div><dt>EDUCATION</dt><dd>Cyber Security Engineering</dd></div><div><dt>FOCUS</dt><dd>Blue Team / SOC</dd></div></dl></div>
     </section>
 
-    <section class="section wrap" id="about" aria-labelledby="about-title" tabindex="-1"><p class="section-label"><span>01</span> / THE MINDSET</p><div class="about-layout"><h2 class="display-title" id="about-title">Defensive<br>thinking.<br><span>Offensive<br>curiosity.</span></h2><div class="about-right"><div class="mini-sculpture" aria-hidden="true"><span></span><span></span><span></span><i></i></div><div class="about-text"><p>
+    <section class="section wrap" id="about" aria-labelledby="about-title" tabindex="-1"><p class="section-label"><span>01</span> / THE MINDSET</p><div class="about-layout"><h2 class="display-title" id="about-title">Defensive<br> thinking.<br> <span class="title-accent">Offensive<br> curiosity.</span></h2><div class="about-right"><div class="mini-sculpture" aria-hidden="true"><span></span><span></span><span></span><i></i></div><div class="about-text"><p>
             I am a cybersecurity engineer with a practical Blue Team focus, including threat detection,
             log analysis and incident response. I work with Splunk, Wireshark and Suricata to understand
             network behavior and identify malicious activity.
@@ -56,7 +60,7 @@
             secure network protocols, SOC procedures and continuous hands-on learning.
           </p></div></div></div></section>
 
-    <section class="section skills-section" id="skills" aria-labelledby="skills-title" tabindex="-1"><div class="wrap"><p class="section-label"><span>02</span> / CAPABILITIES</p><div class="section-heading"><h2 class="display-title" id="skills-title">My security<br><span>stack.</span></h2><p>Offensive, defensive and investigative security capabilities across modern attack and defense workflows.</p></div><div class="skill-tools enhancement"><div class="filter-tabs" role="group" aria-label="Filter skills"><button type="button" data-skill-filter="all" aria-pressed="true">All <span>08</span></button><button type="button" data-skill-filter="defense" aria-pressed="false">Defense</button><button type="button" data-skill-filter="offense" aria-pressed="false">Offense</button><button type="button" data-skill-filter="research" aria-pressed="false">Research</button></div><label class="skill-search"><span class="sr-only">Search skills</span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="10" r="6"/><path d="m15 15 6 6"/></svg><input id="skillSearch" type="search" placeholder="Find a skill or tool…" autocomplete="off"></label></div><div class="skill-result enhancement" id="skillCount" role="status">8 capabilities</div><div class="capability-grid" id="capabilityGrid">
+    <section class="section skills-section" id="skills" aria-labelledby="skills-title" tabindex="-1"><div class="wrap"><p class="section-label"><span>02</span> / CAPABILITIES</p><div class="section-heading"><h2 class="display-title" id="skills-title">My security<br> <span class="title-accent">stack.</span></h2><p>Offensive, defensive and investigative security capabilities across modern attack and defense workflows.</p></div><div class="skill-tools enhancement"><div class="filter-tabs" role="group" aria-label="Filter skills"><button type="button" data-skill-filter="all" aria-pressed="true">All <span>08</span></button><button type="button" data-skill-filter="defense" aria-pressed="false">Defense</button><button type="button" data-skill-filter="offense" aria-pressed="false">Offense</button><button type="button" data-skill-filter="research" aria-pressed="false">Research</button></div><label class="skill-search"><span class="sr-only">Search skills</span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="10" r="6"/><path d="m15 15 6 6"/></svg><input id="skillSearch" type="search" placeholder="Find a skill or tool…" autocomplete="off"></label></div><div class="skill-result enhancement" id="skillCount" role="status">8 capabilities</div><div class="capability-grid" id="capabilityGrid">
         <article class="capability-card tilt-card" data-category="defense">
           <div class="capability-top"><span>01 /</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 6v6c0 5 8 9 8 9s8-4 8-9V6Z"/><path d="m8 12 3 3 5-6"/></svg></div>
           <details open><summary><h3>Blue Team / SOC</h3><span class="detail-toggle" aria-hidden="true"></span></summary>
@@ -115,7 +119,7 @@
         </article>
       </div><p class="empty-state" id="emptySkills" hidden>No matching skills. Try another tool or choose All.</p></div></section>
 
-    <section class="section wrap" id="labs" aria-labelledby="labs-title" tabindex="-1"><p class="section-label"><span>03</span> / PRACTICAL LEARNING</p><div class="lab-layout"><div class="lab-copy"><h2 class="display-title" id="labs-title">Hands-on labs<br><span>over theory<br>alone.</span></h2><p>My practical security work spans offensive labs, defensive investigations, vulnerability analysis,
+    <section class="section wrap" id="labs" aria-labelledby="labs-title" tabindex="-1"><p class="section-label"><span>03</span> / PRACTICAL LEARNING</p><div class="lab-layout"><div class="lab-copy"><h2 class="display-title" id="labs-title">Hands-on labs<br> <span class="title-accent">over theory<br> alone.</span></h2><p>My practical security work spans offensive labs, defensive investigations, vulnerability analysis,
             threat intelligence, malware analysis and realistic attack/defense scenarios through hands-on platforms and research.</p><div class="lab-tags"><span>TryHackMe</span>
             <span>Hack The Box</span>
             <span>Red Team</span>
@@ -124,7 +128,7 @@
             <span>Malware RE</span>
             <span>Network Analysis</span></div></div><div class="platform-stage"><div class="platform-orbit" aria-hidden="true"><span></span><span></span><i></i></div><div class="platform-card tilt-card"><span class="platform-number">01 /</span><strong>TryHackMe</strong><span class="platform-line" aria-hidden="true"></span></div><div class="platform-card tilt-card"><span class="platform-number">02 /</span><strong>Hack The Box</strong><span class="platform-line" aria-hidden="true"></span></div></div></div></section>
 
-    <section class="section background-section" id="experience" aria-labelledby="experience-title" tabindex="-1"><div class="wrap"><p class="section-label"><span>04</span> / BACKGROUND</p><div class="section-heading"><h2 class="display-title" id="experience-title">Experience<br><span>&amp; education.</span></h2></div><div class="timeline">
+    <section class="section background-section" id="experience" aria-labelledby="experience-title" tabindex="-1"><div class="wrap"><p class="section-label"><span>04</span> / BACKGROUND</p><div class="section-heading"><h2 class="display-title" id="experience-title">Experience<br> <span class="title-accent">&amp; education.</span></h2></div><div class="timeline">
         <article class="timeline-item">
 
           <div class="timeline-date">5 YEARS</div>
@@ -150,7 +154,7 @@
         </article>
       </div></div></section>
 
-    <section class="section wrap" id="certificates" aria-labelledby="certificates-title" tabindex="-1"><p class="section-label"><span>05</span> / LEARNING JOURNEY</p><div class="section-heading"><h2 class="display-title" id="certificates-title">Training<br><span>progression.</span></h2><p>Hands-on learning across security operations, networking and offensive security. Course paths and certification study are listed separately.</p></div><div class="training-tabs enhancement" role="group" aria-label="Filter training"><button type="button" data-training-filter="all" aria-pressed="true">All learning</button><button type="button" data-training-filter="progress" aria-pressed="false">Current study <span aria-hidden="true">↗</span></button></div><div class="training-grid">
+    <section class="section wrap" id="certificates" aria-labelledby="certificates-title" tabindex="-1"><p class="section-label"><span>05</span> / LEARNING JOURNEY</p><div class="section-heading"><h2 class="display-title" id="certificates-title">Training<br> <span class="title-accent">progression.</span></h2><p>Hands-on learning across security operations, networking and offensive security. Course paths and certification study are listed separately.</p></div><div class="training-tabs enhancement" role="group" aria-label="Filter training"><button type="button" data-training-filter="all" aria-pressed="true">All learning</button><button type="button" data-training-filter="progress" aria-pressed="false">Current study <span aria-hidden="true">↗</span></button></div><div class="training-grid">
         <article class="training-card tilt-card" data-training="training"><span class="training-number" aria-hidden="true">01</span>
           <div class="training-head">
             <span class="training-state track">TRAINING</span>
@@ -207,7 +211,7 @@
         </article>
       </div></section>
 
-    <section class="section contact-section" id="contact" aria-labelledby="contact-title" tabindex="-1"><div class="contact-orbit" aria-hidden="true"><span></span><span></span></div><div class="wrap"><p class="section-label"><span>06</span> / LET’S CONNECT</p><p class="contact-eyebrow">Open to cybersecurity learning, collaboration, technical projects and professional opportunities.</p><h2 id="contact-title">Let’s talk<br><span>security.</span></h2><a class="button button-light magnetic" href="mailto:yousifics91@gmail.com">Start a conversation <span aria-hidden="true">↗</span></a><div class="contact-list"><a href="mailto:yousifics91@gmail.com"><span>Email</span><strong>yousifics91@gmail.com ↗</strong></a>
+    <section class="section contact-section" id="contact" aria-labelledby="contact-title" tabindex="-1"><div class="contact-orbit" aria-hidden="true"><span></span><span></span></div><div class="wrap"><p class="section-label"><span>06</span> / LET’S CONNECT</p><p class="contact-eyebrow">Open to cybersecurity learning, collaboration, technical projects and professional opportunities.</p><h2 id="contact-title">Let’s talk<br> <span class="title-accent">security.</span></h2><a class="button button-light magnetic" href="mailto:yousifics91@gmail.com">Start a conversation <span aria-hidden="true">↗</span></a><div class="contact-list"><a href="mailto:yousifics91@gmail.com"><span>Email</span><strong>yousifics91@gmail.com ↗</strong></a>
           <a href="https://github.com/Yousif9MohannAd" target="_blank" rel="noopener noreferrer"><span>GitHub</span><strong>Yousif9MohannAd ↗</strong></a>
           <div><span>Location</span><strong>Baghdad, Iraq</strong></div>
           <div><span>LinkedIn</span><strong>yousif-mohannad-ics</strong></div></div></div></section>
