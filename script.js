@@ -1,82 +1,147 @@
-"use strict";
+(() => {
+  "use strict";
+  const header = document.querySelector(".site-header");
+  const menuBtn = document.getElementById("menuBtn");
+  const nav = document.getElementById("navLinks");
+  const mobile = matchMedia("(max-width: 980px)");
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)");
+  if (menuBtn && nav) {
+    const setMenu = (value, focus = false) => {
+      const open = value && mobile.matches;
+      nav.classList.toggle("open", open);
+      menuBtn.setAttribute("aria-expanded", String(open));
+      menuBtn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+      menuBtn.querySelector(".menu-label").textContent = open ? "Close" : "Menu";
+      if (focus) menuBtn.focus();
+    };
+    menuBtn.addEventListener("click", () => setMenu(menuBtn.getAttribute("aria-expanded") !== "true"));
+    header.addEventListener("click", event => { if (event.target.closest('a[href^="#"]')) setMenu(false); });
+    header.addEventListener("focusout", event => { if (!header.contains(event.relatedTarget)) setMenu(false); });
+    document.addEventListener("click", event => { if (!header.contains(event.target) && menuBtn.getAttribute("aria-expanded") === "true") setMenu(false, nav.contains(document.activeElement)); });
+    document.addEventListener("keydown", event => { if (event.key === "Escape" && menuBtn.getAttribute("aria-expanded") === "true") setMenu(false, true); });
+    mobile.addEventListener("change", () => {
+      setMenu(false, mobile.matches && nav.contains(document.activeElement));
+      if (!mobile.matches && document.activeElement === menuBtn) (nav.querySelector('[aria-current="location"]') || nav.querySelector("a"))?.focus();
+    });
+    document.documentElement.classList.add("js-menu");
+  }
 
-const header = document.querySelector(".site-header");
-const menuBtn = document.getElementById("menuBtn");
-const navLinks = document.getElementById("navLinks");
-const mobile = window.matchMedia("(max-width: 1024px)");
-
-if (menuBtn && navLinks) {
-  const label = menuBtn.querySelector(".menu-label");
-  const setMenu = (open, returnFocus = false) => {
-    const expanded = open && mobile.matches;
-    navLinks.classList.toggle("open", expanded);
-    menuBtn.setAttribute("aria-expanded", String(expanded));
-    menuBtn.setAttribute("aria-label", expanded ? "Close menu" : "Open menu");
-    if (label) label.textContent = expanded ? "Close" : "Menu";
-    if (returnFocus) menuBtn.focus();
+  const cards = [...document.querySelectorAll(".capability-card")];
+  const scene = document.getElementById("sceneRoot");
+  const focusButtons = [...document.querySelectorAll(".focus-tabs button")];
+  const focusSource = {
+    defense: cards.find(card => card.dataset.category === "defense"),
+    offense: cards.find(card => card.dataset.category === "offense"),
+    research: cards.find(card => card.dataset.category === "research")
   };
+  focusButtons.forEach(button => button.addEventListener("click", () => {
+    const focus = button.dataset.focus;
+    const card = focusSource[focus];
+    if (!card || !scene) return;
+    focusButtons.forEach(item => item.setAttribute("aria-pressed", String(item === button)));
+    document.getElementById("focusTitle").textContent = card.querySelector("h3").textContent;
+    document.getElementById("focusDescription").textContent = card.querySelector(".capability-body p").textContent;
+    scene.dataset.focus = focus;
+    scene.dispatchEvent(new CustomEvent("focuschange", { detail: focus }));
+  }));
 
-  menuBtn.addEventListener("click", () => {
-    setMenu(menuBtn.getAttribute("aria-expanded") !== "true");
+  let skillFilter = "all";
+  const search = document.getElementById("skillSearch");
+  const skillFilters = [...document.querySelectorAll("[data-skill-filter]")];
+  const index = new Map(cards.map(card => [card, card.textContent.toLocaleLowerCase()]));
+  const filterSkills = () => {
+    const query = search.value.trim().toLocaleLowerCase();
+    let count = 0;
+    cards.forEach(card => {
+      const show = (skillFilter === "all" || card.dataset.category === skillFilter) && index.get(card).includes(query);
+      card.hidden = !show;
+      if (show) count++;
+    });
+    document.getElementById("skillCount").textContent = count + (count === 1 ? " capability" : " capabilities");
+    document.getElementById("emptySkills").hidden = count !== 0;
+  };
+  skillFilters.forEach(button => button.addEventListener("click", () => {
+    skillFilter = button.dataset.skillFilter;
+    skillFilters.forEach(item => item.setAttribute("aria-pressed", String(item === button)));
+    filterSkills();
+  }));
+  search?.addEventListener("input", filterSkills);
+  const trainingFilters = [...document.querySelectorAll("[data-training-filter]")];
+  trainingFilters.forEach(button => button.addEventListener("click", () => {
+    trainingFilters.forEach(item => item.setAttribute("aria-pressed", String(item === button)));
+    document.querySelectorAll(".training-card").forEach(card => { card.hidden = button.dataset.trainingFilter !== "all" && card.dataset.training !== button.dataset.trainingFilter; });
+  }));
+
+  const finePointer = matchMedia("(hover: hover) and (pointer: fine)");
+  document.querySelectorAll(".tilt-card").forEach(card => {
+    let pending = 0, x = 0, y = 0;
+    const reset = () => { if (pending) cancelAnimationFrame(pending); pending = 0; card.style.removeProperty("--tilt-x"); card.style.removeProperty("--tilt-y"); };
+    card.addEventListener("pointermove", event => {
+      if (reduced.matches || !finePointer.matches || event.pointerType !== "mouse") return;
+      x = event.clientX; y = event.clientY;
+      if (!pending) pending = requestAnimationFrame(() => {
+        pending = 0;
+        const bounds = card.getBoundingClientRect();
+        const horizontal = (x - bounds.left) / bounds.width;
+        const vertical = (y - bounds.top) / bounds.height;
+        card.style.setProperty("--tilt-x", ((.5 - vertical) * 6).toFixed(2) + "deg");
+        card.style.setProperty("--tilt-y", ((horizontal - .5) * 8).toFixed(2) + "deg");
+        card.style.setProperty("--mouse-x", (horizontal * 100).toFixed(1) + "%");
+        card.style.setProperty("--mouse-y", (vertical * 100).toFixed(1) + "%");
+      });
+    }, { passive: true });
+    card.addEventListener("pointerleave", reset);
+    reduced.addEventListener("change", reset);
   });
-  header?.addEventListener("click", event => {
-    const link = event.target.closest('a[href^="#"]');
-    if (!link) return;
-    setMenu(false);
-    document.getElementById(link.hash.slice(1))?.focus({ preventScroll: true });
+  document.querySelectorAll(".magnetic").forEach(link => {
+    link.addEventListener("pointermove", event => {
+      if (reduced.matches || !finePointer.matches || event.pointerType !== "mouse") return;
+      const bounds = link.getBoundingClientRect();
+      link.style.setProperty("--magnet-x", ((event.clientX - bounds.left - bounds.width / 2) * .08).toFixed(1) + "px");
+      link.style.setProperty("--magnet-y", ((event.clientY - bounds.top - bounds.height / 2) * .12).toFixed(1) + "px");
+    }, { passive: true });
+    link.addEventListener("pointerleave", () => { link.style.removeProperty("--magnet-x"); link.style.removeProperty("--magnet-y"); });
   });
-  document.addEventListener("keydown", event => {
-    if (event.key === "Escape" && menuBtn.getAttribute("aria-expanded") === "true") setMenu(false, true);
-  });
+
+  if ("IntersectionObserver" in window && !reduced.matches) {
+    const reveal = new IntersectionObserver(entries => entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.remove("reveal-pending"); entry.target.classList.add("reveal-visible"); reveal.unobserve(entry.target);
+    }), { threshold: .06, rootMargin: "0px 0px 30px 0px" });
+    document.querySelectorAll(".section .section-label,.display-title,.about-text,.capability-grid,.platform-stage,.timeline-item,.training-grid").forEach(element => {
+      if (element.getBoundingClientRect().top > innerHeight + 40) { element.classList.add("reveal-pending"); reveal.observe(element); }
+    });
+    reduced.addEventListener("change", () => { if (reduced.matches) { reveal.disconnect(); document.querySelectorAll(".reveal-pending").forEach(element => element.classList.remove("reveal-pending")); } });
+  }
   document.addEventListener("click", event => {
-    if (!header?.contains(event.target) && menuBtn.getAttribute("aria-expanded") === "true") {
-      setMenu(false, navLinks.contains(document.activeElement));
-    }
+    const link = event.target.closest('a[href^="#"]');
+    const target = link && document.getElementById(link.hash.slice(1));
+    if (!target) return;
+    target.classList.remove("reveal-pending"); target.querySelectorAll(".reveal-pending").forEach(element => element.classList.remove("reveal-pending"));
+    target.focus({ preventScroll: true });
   });
-  // This is a disclosure: Tab moves naturally into the rest of the page.
-  header?.addEventListener("focusout", event => {
-    if (!header.contains(event.relatedTarget)) setMenu(false);
-  });
-  mobile.addEventListener("change", () => {
-    setMenu(false, mobile.matches && navLinks.contains(document.activeElement));
-    if (!mobile.matches && document.activeElement === menuBtn) {
-      (navLinks.querySelector('[aria-current="location"]') || navLinks.querySelector("a"))?.focus();
-    }
-  });
-  document.documentElement.classList.add("js-menu");
-}
-
-const year = document.getElementById("year");
-if (year) year.textContent = String(new Date().getFullYear());
-
-// Scroll tracking also works when IntersectionObserver is unavailable.
-const navigation = [...document.querySelectorAll('.nav a[href^="#"]')];
-const sections = [...document.querySelectorAll("main > section[id]")];
-let currentId = "";
-let scrollPending = false;
-
-const updateNavigation = () => {
-  scrollPending = false;
-  const activationLine = (mobile.matches ? (header?.getBoundingClientRect().height || 72) : 0) + 64;
-  let active = sections[0]?.id;
-  for (const section of sections) {
-    if (section.getBoundingClientRect().top <= activationLine) active = section.id;
-  }
-  if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4) active = sections.at(-1)?.id;
-  if (!active || active === currentId) return;
-  currentId = active;
-  for (const link of navigation) {
-    if (link.hash === `#${active}`) link.setAttribute("aria-current", "location");
-    else link.removeAttribute("aria-current");
-  }
-};
-const scheduleNavigation = () => {
-  if (scrollPending) return;
-  scrollPending = true;
-  window.requestAnimationFrame(updateNavigation);
-};
-window.addEventListener("scroll", scheduleNavigation, { passive: true });
-window.addEventListener("resize", scheduleNavigation);
-window.addEventListener("hashchange", scheduleNavigation);
-window.addEventListener("pageshow", scheduleNavigation);
-updateNavigation();
+  const sections = [...document.querySelectorAll("main > section[id]")];
+  const navigation = [...document.querySelectorAll('.site-header a[href^="#"]')];
+  const progress = document.querySelector(".reading-progress > span");
+  let queued = false, current = "";
+  const updateNavigation = () => {
+    queued = false;
+    const activationLine = (header?.getBoundingClientRect().height || 82) + 80;
+    let active = sections[0]?.id;
+    for (const section of sections) if (section.getBoundingClientRect().top <= activationLine) active = section.id;
+    const distance = Math.max(1, document.documentElement.scrollHeight - innerHeight);
+    progress.style.transform = "scaleX(" + Math.max(0, Math.min(1, scrollY / distance)) + ")";
+    if (scrollY + innerHeight >= document.documentElement.scrollHeight - 4) active = sections.at(-1)?.id;
+    if (!active || active === current) return;
+    current = active;
+    navigation.forEach(link => { if (link.hash === "#" + active) link.setAttribute("aria-current", "location"); else link.removeAttribute("aria-current"); });
+  };
+  const queueNavigation = () => { if (!queued) { queued = true; requestAnimationFrame(updateNavigation); } };
+  addEventListener("scroll", queueNavigation, { passive: true });
+  addEventListener("resize", queueNavigation);
+  addEventListener("hashchange", queueNavigation);
+  addEventListener("pageshow", queueNavigation);
+  const year = document.getElementById("year"); if (year) year.textContent = String(new Date().getFullYear());
+  document.documentElement.classList.add("js");
+  updateNavigation();
+})();
